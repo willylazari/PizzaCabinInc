@@ -20,14 +20,20 @@ namespace PizzaCabinInc.Controllers
 
         /// <summary>
         /// Provides the team’s schedule for the given day  
-        /// </summary>
-        /// <param name="date">Meeting day</param>
-        /// <param name="quantity">Number of workers</param>
-        /// <returns></returns>        
+        /// </summary>        
+        /// <returns>Returns the meeting possibilities</returns>        
         [HttpGet]
-        public IEnumerable<WorkforceSchedule> GetWorkforceSchedule([FromQuery] WorkForceScheduleRequest workforceScheduleRequest)
+        public WorkforceSchedule GetWorkforceSchedule([FromQuery] WorkForceScheduleRequest workforceScheduleRequest)
         {
-            return _workforceScheduleService.GetWorkforceSchedule(workforceScheduleRequest);
+            try
+            {
+                return _workforceScheduleService.GetWorkforceSchedule(workforceScheduleRequest);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("ERROR:" + ex.Message);
+                throw ex;
+            }            
         }
     }
 }
