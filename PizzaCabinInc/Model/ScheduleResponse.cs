@@ -1,8 +1,8 @@
 namespace PizzaCabinInc.Model
 {
-    public class WorkforceSchedule
+    public class ScheduleResponse
     {
-        public int TeamID { get; set; }
+        //public int TeamID { get; set; }
 
         public List<DateTime> MeetingTimes { get; set; }
     }

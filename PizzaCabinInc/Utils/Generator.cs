@@ -73,7 +73,7 @@ namespace PizzaCabinInc.Utils
             }
 
             WorkforceScheduleService _workforceScheduleService = new WorkforceScheduleService();
-            WorkforceSchedule workForceSchedule = _workforceScheduleService.SearchSchedule(workforceScheduleRequest, team);
+            WorkforceScheduleResponse workForceSchedule = _workforceScheduleService.SearchSchedule(workforceScheduleRequest, team);
             if (workForceSchedule.MeetingTimes.Count < 0)
             {
                 //...

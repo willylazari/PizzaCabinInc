@@ -7,33 +7,33 @@ namespace PizzaCabinInc.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WorkforceScheduleController : ControllerBase
+    public class ScheduleController : ControllerBase
     {      
-        private readonly ILogger<WorkforceScheduleController> _logger;
-        private readonly WorkforceScheduleService _workforceScheduleService;
+        private readonly ILogger<ScheduleController> _logger;
+        private readonly ScheduleService _scheduleService;
 
-        public WorkforceScheduleController(ILogger<WorkforceScheduleController> logger)
+        public ScheduleController(ILogger<ScheduleController> logger)
         {
             _logger = logger;
-            _workforceScheduleService = new WorkforceScheduleService();
+            _scheduleService = new ScheduleService();
         }
-
+            
         /// <summary>
         /// Provides the team’s schedule for the given day  
         /// </summary>        
         /// <returns>Returns the meeting possibilities</returns>        
         [HttpGet]
-        public WorkforceScheduleResponse GetWorkforceSchedule([FromQuery] WorkForceScheduleRequest workforceScheduleRequest)
+        public ScheduleResponse GetSchedule([FromQuery] ScheduleRequest scheduleRequest)
         {
             try
             {
-                return _workforceScheduleService.GetWorkforceSchedule(workforceScheduleRequest);
+                return _scheduleService.GetSchedule(scheduleRequest);
             }
             catch (Exception ex)
             {
                 _logger.LogError("ERROR:" + ex.Message);
                 throw ex;
-            }            
-        }               
+            }
+        }
     }
 }

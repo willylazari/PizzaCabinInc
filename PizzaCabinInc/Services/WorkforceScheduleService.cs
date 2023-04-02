@@ -3,6 +3,9 @@ using System.Data;
 using System;
 using PizzaCabinInc.Utils;
 using PizzaCabinInc.Model;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using PizzaCabinInc.Proxy;
 
 namespace PizzaCabinInc.Services
 {
@@ -18,10 +21,10 @@ namespace PizzaCabinInc.Services
         public static int lunchDuration = 60;
         public static int[] minutesAllowed = new int[] { 00, 15, 30, 45 };
 
-        public WorkforceSchedule GetWorkforceSchedule(WorkForceScheduleRequest workforceScheduleRequest)
+        public WorkforceScheduleResponse GetWorkforceSchedule(WorkForceScheduleRequest workforceScheduleRequest)
         {
             Team leadersTeam = SearchTeam(workforceScheduleRequest);
-            WorkforceSchedule workForceSchedule = SearchSchedule(workforceScheduleRequest, leadersTeam);
+            WorkforceScheduleResponse workForceSchedule = SearchSchedule(workforceScheduleRequest, leadersTeam);
 
             return workForceSchedule;
         }
@@ -32,15 +35,15 @@ namespace PizzaCabinInc.Services
             return Generator.GenerateTeam(workforceScheduleRequest);
         }
 
-        public WorkforceSchedule SearchSchedule(WorkForceScheduleRequest workforceScheduleRequest, Team team)
+        public WorkforceScheduleResponse SearchSchedule(WorkForceScheduleRequest workforceScheduleRequest, Team team)
         {
-            WorkforceSchedule result = new WorkforceSchedule();            
+            WorkforceScheduleResponse result = new WorkforceScheduleResponse();            
             result.TeamID = team.ID;
             result.MeetingTimes = new List<DateTime>();
 
             for (int i = companyOpenHour; i < companyCloseHour; i+=1)
             {
-                for (int j = 0; j < 50; j+=15)
+                for (int j = 0; j < 50; j+= meetingDurationMinutes)
                 {
                     DateTime meetingInvite = new DateTime(workforceScheduleRequest.date.Year, workforceScheduleRequest.date.Month, workforceScheduleRequest.date.Day, i, j, 0);
                     if (CanSchedule(workforceScheduleRequest, team, meetingInvite))
@@ -94,5 +97,6 @@ namespace PizzaCabinInc.Services
 
             return false;
         }
+
     }
 }

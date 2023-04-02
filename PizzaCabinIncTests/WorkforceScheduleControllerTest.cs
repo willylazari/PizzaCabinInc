@@ -27,7 +27,7 @@ namespace PizzaCabinIncTests
             var result = _controller.GetWorkforceSchedule(request);
 
             // Assert
-            Assert.IsType<WorkforceSchedule>(result as WorkforceSchedule);
+            Assert.IsType<WorkforceScheduleResponse>(result as WorkforceScheduleResponse);
         }
     }
 }
