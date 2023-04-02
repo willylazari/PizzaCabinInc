@@ -22,6 +22,7 @@ namespace PizzaCabinInc.Controllers
         /// Provides the team’s schedule for the given day  
         /// </summary>        
         /// <returns>Returns the meeting possibilities</returns>        
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public WorkforceScheduleResponse GetWorkforceSchedule([FromQuery] WorkForceScheduleRequest workforceScheduleRequest)
         {
